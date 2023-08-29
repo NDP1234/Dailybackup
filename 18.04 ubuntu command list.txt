@@ -1,0 +1,147 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\WIN-AHD-003> wsl --set-version Ubuntu-18.04 2
+For information on key differences with WSL 2 please visit https://aka.ms/wsl2
+Conversion in progress, this may take a few minutes.
+The distribution is already the requested version.
+Error code: Wsl/Service/WSL_E_VM_MODE_INVALID_STATE
+PS C:\Users\WIN-AHD-003> wsl --list --verbose
+  NAME            STATE           VERSION
+* Ubuntu          Stopped         2
+  Ubuntu-18.04    Stopped         2
+PS C:\Users\WIN-AHD-003> wsl --start Ubuntu-18.04
+Invalid command line argument: --start
+Please use 'wsl.exe --help' to get a list of supported arguments.
+PS C:\Users\WIN-AHD-003> wsl --distribution Ubuntu-18.04
+niravdpatel@WIN-AHD-003:/mnt/c/Users/WIN-AHD-003$ mysql --version
+mysql  Ver 14.14 Distrib 5.7.42, for Linux (x86_64) using  EditLine wrapper
+niravdpatel@WIN-AHD-003:/mnt/c/Users/WIN-AHD-003$ systemctl status mysql
+● mysql.service - MySQL Community Server
+   Loaded: loaded (/lib/systemd/system/mysql.service; disabled; vendor preset: enabled)
+   Active: inactive (dead)
+niravdpatel@WIN-AHD-003:/mnt/c/Users/WIN-AHD-003$ sudo systemctl start mysql
+[sudo] password for niravdpatel:
+niravdpatel@WIN-AHD-003:/mnt/c/Users/WIN-AHD-003$ sudo mysql
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.42-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create database backup_db;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use nackup_db;
+ERROR 1049 (42000): Unknown database 'nackup_db'
+mysql> use backup_db;
+Database changed
+mysql> CREATE TABLE Persons (
+    ->     PersonID int,
+    ->     LastName varchar(255),
+    ->     FirstName varchar(255),
+    ->     Address varchar(255),
+    ->     City varchar(255)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO Persons
+    -> VALUES(1, "Nirav", "Patel", "JivrajPark", "Ahmedabad");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select* from Persons;
++----------+----------+-----------+------------+-----------+
+| PersonID | LastName | FirstName | Address    | City      |
++----------+----------+-----------+------------+-----------+
+|        1 | Nirav    | Patel     | JivrajPark | Ahmedabad |
++----------+----------+-----------+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> INSERT INTO Persons  VALUES(2, "Akash", "Patel", "JivrajPark", "Ahmedabad");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select* from Persons;
++----------+----------+-----------+------------+-----------+
+| PersonID | LastName | FirstName | Address    | City      |
++----------+----------+-----------+------------+-----------+
+|        1 | Nirav    | Patel     | JivrajPark | Ahmedabad |
+|        2 | Akash    | Patel     | JivrajPark | Ahmedabad |
++----------+----------+-----------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> mysql -u root -p
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql -u root -p' at line 1
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'niravgovtsoft';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> exit;
+Bye
+niravdpatel@WIN-AHD-003:/mnt/c/Users/WIN-AHD-003$ cd ..
+niravdpatel@WIN-AHD-003:/mnt/c/Users$ cd ..
+niravdpatel@WIN-AHD-003:/mnt/c$ cd backupScript
+niravdpatel@WIN-AHD-003:/mnt/c/backupScript$ ./backup_script.sh
+Old backup file found. Removing...
+mysqldump: [Warning] Using a password on the command line interface can be insecure.
+niravdpatel@WIN-AHD-003:/mnt/c/backupScript$ chmod +x backup_script.sh
+niravdpatel@WIN-AHD-003:/mnt/c/backupScript$ crontab -e
+no crontab for niravdpatel - using an empty one
+
+Select an editor.  To change later, run 'select-editor'.
+  1. /bin/nano        <---- easiest
+  2. /usr/bin/vim.basic
+  3. /usr/bin/vim.tiny
+  4. /bin/ed
+
+Choose 1-4 [1]: 1
+crontab: installing new crontab
+niravdpatel@WIN-AHD-003:/mnt/c/backupScript$ crontab -l
+# Edit this file to introduce tasks to be run by cron.
+#
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+#
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').#
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+#
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+#
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+#
+# For more information see the manual pages of crontab(5) and cron(8)
+#
+# m h  dom mon dow   command
+*/2 * * * * /mnt/c/backupScript/backup_script.sh
+niravdpatel@WIN-AHD-003:/mnt/c/backupScript$ exit
+logout
+PS C:\Users\WIN-AHD-003> wsl --list --verbose
+  NAME            STATE           VERSION
+* Ubuntu          Stopped         2
+  Ubuntu-18.04    Stopped         2
+PS C:\Users\WIN-AHD-003>
