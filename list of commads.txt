@@ -1,0 +1,16 @@
+1) for finding the available version of ubuntu
+wsl --list --verbose
+
+2) to strat the perticular version of ubuntu
+ wsl --distribution Ubuntu-18.04
+
+3) identify the current version of mysql
+mysql --version
+
+4) for starting the mysql server
+sudo systemctl start mysql
+
+5) to enter in mysql prompt
+sudo mysql
+
+
