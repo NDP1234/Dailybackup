@@ -1,0 +1,16 @@
+Microservice Architecture
+
+Needs of Microservice
+1) It is self-contained.
+2) Each microservice can be hosted on different servers.
+3) Each microservice can be written in diffrent programming languages. 
+4) They can have different databases.
+5) If correction is required then after changing in corresponding microservice it solely rehosted instead of rehosting the whole project.  
+6) Load balance.
+
+steps:
+1) client sends the request to api gateway. This request path is called as upstream path. because client has no direct access to api(Microservice).
+2) Now API Gateway sends request to microservice. This request path is called as downstream path.
+3) Once response is got by api gateway it passes to client.
+
+

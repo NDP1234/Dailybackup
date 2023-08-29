@@ -1,0 +1,29 @@
+Layers of ASP .NET CORE WEP API :
+
+1) Domain (entities, model classes)->  entities and their specifications.
+	  -> which are the application model classes or database model classes, using the code first approach in the application development using Asp.net core these entities 		     are used to create the tables in the database.
+
+2) Application (Interfaces)-> All the business logic will be written in this layer. It is in this layer that services interfaces are kept, separate from their implementation, 					for loose coupling and separation of concerns.
+
+3) Infrastructure (Repositories)-> having repository
+		  -> we have model objects we will maintain all the database migrations and database context Objects in this layer.
+
+4) Presentation (fetch the data from application layer) -> used to fetch the product data from the application layer and populate the webpage with the relevant information.
+
+-> Domain and Application is the center of design and they called as core of the system.
+-> So, in the future, if we want to change the UI/ OR framework of the system, we can do it easily because all the other dependencies of the system are not dependent on the core of the system.
+
+In programming 
+1) create first domain layer
+  inside it creates below folders
+  i)   entites(model classes for database)
+  ii) specifications(declare specification) 
+	for example if you want the result of the API in ascending OR, in descending Order, OR want the result in the specific criteria, OR want the result in the form of pagination then you need to add the specification class.
+
+2) Application layer:(service interfaces)
+   services interfaces are kept separate from their implementation for loose coupling
+
+3) Infrastructure layer: (Service Repositories that implements service interfaces, database context class)
+
+4) Presentation Layer: it presents us the object data from the database using the HTTP request in the form of JSON Object. 
+   But in the case of front-end applications, we present the data using the UI by consuming the APIS.
