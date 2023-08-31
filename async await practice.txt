@@ -1,0 +1,156 @@
+--------------------------------------------------------------------------async - await Practice------------------------------------------------------------------------------
+
+----------------------------------------code without usage of async await
+
+code:
+
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;
+using System.Threading;
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        // Console.WriteLine ("Hello Mono World");
+        Demo();
+    }
+    public static void Demo(){
+        
+        var watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
+        
+        fillBowlWithWater();
+        PourMilkToCup();
+        BoilTheWater();
+        AddTea();
+        AddSuger();
+        TeaGetsRaedy();
+        
+        watch.Stop();
+        Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
+    }
+    public  static void fillBowlWithWater(){
+        Thread.Sleep(3000);
+        Console.WriteLine("Filling the bowlwith water");
+    }
+    public static void PourMilkToCup(){
+        Thread.Sleep(1000);
+        Console.WriteLine("Pour the milk to cup");
+    }
+     public static void BoilTheWater(){
+        Thread.Sleep(8000);
+        Console.WriteLine("Pour the water");
+    }
+     public static void AddTea(){
+        Thread.Sleep(2000);
+        Console.WriteLine("Add the two spoons of tea to mixure.");
+    }
+    public static void AddSuger(){
+        Thread.Sleep(2000);
+        Console.WriteLine("Add the three spoons of suger to mixure.");
+    }
+    public static void TeaGetsRaedy(){
+        Thread.Sleep(2000);
+        Console.WriteLine("Your Tea is ready!...");
+    }
+}
+
+*Output:
+
+Filling the bowlwith water
+Pour the milk to cup
+Pour the water
+Add the two spoons of tea to mixure.
+Add the three spoons of suger to mixure.
+Your Tea is ready!...
+Execution Time: 18029 ms
+
+
+----------------------------------------code with usage of async await
+
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+
+public class HelloWorld
+{
+    public static void Main(string[] args)
+    {
+        // Console.WriteLine ("Hello Mono World");
+        Demo();
+    }
+    public static void Demo(){
+        
+        var watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
+        
+        var task1 = fillBowlWithWater();
+        var task2 = PourMilkToCup();
+        var task3 = BoilTheWater();
+        var task4 = AddTea();
+        var task5 = AddSuger();
+        var task6 = TeaGetsRaedy();
+        Task.WaitAll(task1, task2, task3, task4, task5, task6);
+        watch.Stop();
+        Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
+    }
+    public  static async Task fillBowlWithWater(){
+        await Task.Run(() =>
+        {
+        Thread.Sleep(3000);
+        Console.WriteLine("Filling the bowl with water");
+        });
+    }
+    public static async Task PourMilkToCup(){
+    await Task.Run(() =>
+        {
+        Thread.Sleep(1000);
+        Console.WriteLine("Pour the milk to cup");
+    });
+    }
+     public static async Task BoilTheWater(){
+         await Task.Run(() =>
+        {
+        Thread.Sleep(18000);
+        Console.WriteLine("Boil the water");
+     });
+    }
+     public static async Task AddTea(){
+    await Task.Run(() =>
+        {
+        Thread.Sleep(2000);
+        Console.WriteLine("Add the two spoons of tea to mixure.");
+     });
+    }
+    public static async Task AddSuger(){
+        await Task.Run(() =>
+        {
+        Thread.Sleep(2000);
+        Console.WriteLine("Add the three spoons of suger to mixure.");
+    });
+    }
+    public static async Task TeaGetsRaedy(){
+        await Task.Run(() =>
+        {
+        Thread.Sleep(18000);
+        Console.WriteLine("Your Tea is ready!...");
+    });
+    }
+}
+
+
+*Output:
+Pour the milk to cup
+Add the three spoons of suger to mixure.
+Add the two spoons of tea to mixure.
+Filling the bowl with water
+Boil the water
+Your Tea is ready!...
+Execution Time: 18026 ms

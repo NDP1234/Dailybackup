@@ -1,0 +1,25 @@
+// Online C# Editor for free
+// Write, Edit and Run your C# code using C# Online Compiler
+
+using System;
+
+public class HelloWorld
+{
+   public static void Main(String[] args)
+   {
+       GetterSetter<int> gst =  new GetterSetter<int>();
+       gst.setter(25);
+       Console.WriteLine(gst.getter());
+   }
+}
+public class GetterSetter<T>{
+    private T value;
+    
+    public void setter(T val){
+        this.value  =  val;
+        Console.WriteLine("the value is set which is {0} ", this.value);
+    }
+    public T getter(){
+        return this.value;
+    }
+}
